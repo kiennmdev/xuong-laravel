@@ -101,7 +101,14 @@
                                 </td>
                                 <td>{{ $item->created_at }} </td>
                                 <td>{{ $item->updated_at }} </td>
-                                <td>Action</td>
+                                <td>
+                                    <form action="{{route('admin.products.destroy', $item)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"
+                                        onclick="return confirm('Muốn xóa không?')">Delete</button>
+                                    </form>
+                                </td>
 
                             </tr>
                         @endforeach

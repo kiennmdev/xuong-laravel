@@ -49,8 +49,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $dataProduct = $request->except('product_variants', 'tags', 'product_galleries');
-
+        // dd($dataProduct);
         $dataProduct['is_active'] = isset($dataProduct['is_active']) ? 1 : 0;
         $dataProduct['is_hot_deal'] = isset($dataProduct['is_hot_deal']) ? 1 : 0;
         $dataProduct['is_new'] = isset($dataProduct['is_new']) ? 1 : 0;
@@ -143,6 +144,18 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        // dd($product->galleries());
+        
+        try {
+            DB::transaction(function() use ($product) {
+                $product->tags()->sync([]);
+                $product->galleries()->delete();
+                $product->variants()->delete();
+                $product->delete();
+            }, 3);
+
+        } catch (\Exception $exception) {
+            return back();
+        }
     }
 }
