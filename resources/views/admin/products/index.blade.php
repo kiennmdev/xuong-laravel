@@ -101,8 +101,11 @@
                                 </td>
                                 <td>{{ $item->created_at }} </td>
                                 <td>{{ $item->updated_at }} </td>
-                                <td>
-                                    <form action="{{route('admin.products.destroy', $item)}}" method="post">
+                                <td class="">
+                                    <div class="d-inline">
+                                        <a href="{{route('admin.products.edit', $item)}}" class="btn btn-warning">Sửa</a>
+                                    </div>
+                                    <form class="d-inline" action="{{route('admin.products.destroy', $item)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"
