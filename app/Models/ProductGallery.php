@@ -12,6 +12,7 @@ class ProductGallery extends Model
     protected $fillable = [
         'product_id',
         'image',
+        'status',
     ];
 
 }

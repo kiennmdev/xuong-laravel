@@ -204,13 +204,17 @@ class ProductController extends Controller
 
             $product->tags()->sync($dataProductTags);
 
-            if($dataProductGalleries !== null) {
-                foreach ($dataProductGalleries as $image) {
+            if(isset($dataProductGalleries['add-gallery'])) {
+                foreach ($dataProductGalleries['add-gallery'] as $image) {
                     ProductGallery::query()->create([
                         'product_id' => $dataProduct['id'],
                         'image' => Storage::put('products', $image)
-                    ]); 
+                    ]);
                 }
+            }
+
+            foreach ($dataProductGalleries['edit-gallery'] as $id => $value) {
+                ProductGallery::query()->where('id', '=', $id)->update(['status' => $value]);
             }
 
             foreach ($dataProductVariants as $variant) {

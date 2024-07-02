@@ -13,7 +13,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Sản phẩm</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.products.index')}}">Sản phẩm</a></li>
                         <li class="breadcrumb-item active">Chỉnh sửa</li>
                     </ol>
                 </div>
@@ -162,7 +162,7 @@
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Biến thể</h4>
                     </div><!-- end card header -->
-                    <div class="card-body" style="height: 300px; overflow: scroll">
+                    <div class="card-body" style="height: 400px; overflow: scroll">
                         <div class="live-preview">
                             <div class="row gy-4">
 
@@ -230,25 +230,39 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Galleries</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">List Galleries</h4>
                         <button type="button" class="btn btn-primary" id="addGallery">Thêm ảnh</button>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
-                            <div class="row gy-4" id="boxGalleryImg" style="overflow: scroll; height: 500px">
+                            <div class="row gy-4" id="boxGalleryImg" style="overflow: scroll; height: 400px">
 
+                                <div class="col-xxl-12 col-md-12 d-flex">
                                 @foreach ($productEdit->galleries as $key => $gallery)
-                                    <div class="col-xxl-4 col-md-4">
-                                        <div>
-                                            <label for="gallery_{{ $key + 1 }}" class="form-label">Image
-                                                gallery</label>
-                                            <input type="file" class="form-control" id="gallery_{{ $key + 1 }}"
-                                                name="product_galleries[]">
-                                            <img class="mt-3" src="{{ \Storage::url($gallery->image) }}"
-                                                alt="" width="100px">
+                                        <div class="mx-2">
+                                            <div>
+                                                <img class="mt-3 {{ $gallery->status == 0 ? 'opacity-50' : '' }}"
+                                                    id="gallery_img_{{ $gallery->id }}"
+                                                    src="{{ \Storage::url($gallery->image) }}" alt=""
+                                                    width="100px">
+                                                <!-- Custom Checkboxes Color -->
+                                                <div class="form-check form-switch form-switch-secondary">
+                                                    <input type="hidden"
+                                                        name="product_galleries[edit-gallery][{{ $gallery->id }}]"
+                                                        value="0">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="status_gallery_{{ $gallery->id }}"
+                                                        onclick="changeStatus('{{ $gallery->id }}')" value="1"
+                                                        name="product_galleries[edit-gallery][{{ $gallery->id }}]"
+                                                        {{ $gallery->status == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label"
+                                                        for="status_gallery_{{ $gallery->id }}">Hiện/Ẩn</label>
+                                                </div>
+                                            </div>
+
                                         </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
 
 
                                 <!--end row-->
@@ -322,21 +336,20 @@
 
 @section('scripts')
     <script>
-        let numberIncrease = 1;
+        let id = 'gen' + '_' + Math.random().toString(36).substring(2, 15).toLowerCase();
 
         let addGalleryBtn = document.getElementById('addGallery')
 
         addGalleryBtn.addEventListener('click', (e) => {
-            numberIncrease++;
 
             let addGalleryElement = `<div class="col-xxl-4 col-md-4">
         
-        <div id="box_${numberIncrease}">
-            <label for="gallery_${numberIncrease}" class="form-label">Image gallery</label>
+        <div id="box_${id}">
+            <label for="gallery_${id}" class="form-label">Image gallery</label>
             <div class="d-flex">
-                <input type="file" class="form-control" id="gallery_${numberIncrease}"
+                <input type="file" class="form-control" id="gallery_${id}"
                 name="product_galleries[]">
-                <button type="button" class="btn btn-danger" onclick="removeGalleryImg('box_${numberIncrease}')"><span class="bx bx-trash"></span></button>
+                <button type="button" class="btn btn-danger" onclick="removeGalleryImg('box_${id}')"><span class="bx bx-trash"></span></button>
             </div>
         </div>
 
@@ -351,6 +364,21 @@
             if (confirm('Bạn có muốn xóa không?')) {
                 $(`#${param}`).remove()
             }
+        }
+
+        function changeStatus(id) {
+            let image = document.getElementById(`gallery_img_${id}`);
+
+            let checkbox = document.getElementById(`status_gallery_${id}`);
+
+            if (checkbox.checked && $(image).hasClass('opacity-50')) {
+                // image.classList.add("opacity-50");
+                $(image).removeClass("opacity-50");
+            } else {
+                // image.classList.remove("opacity-50");
+                $(image).addClass("opacity-50");
+            }
+
         }
     </script>
 @endsection

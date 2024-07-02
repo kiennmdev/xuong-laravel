@@ -282,21 +282,20 @@
     <script>
         CKEDITOR.replace('content');
 
-        let numberIncrease = 1;
+        let id = 'gen' + '_' + Math.random().toString(36).substring(2, 15).toLowerCase();
 
         let addGalleryBtn = document.getElementById('addGallery')
 
         addGalleryBtn.addEventListener('click', (e) => {
-            numberIncrease++;
 
             let addGalleryElement = `<div class="col-xxl-4 col-md-4">
                 
-                <div id="box_${numberIncrease}">
-                    <label for="gallery_${numberIncrease}" class="form-label">Image gallery</label>
+                <div id="box_${id}">
+                    <label for="gallery_${id}" class="form-label">Image gallery</label>
                     <div class="d-flex">
-                        <input type="file" class="form-control" id="gallery_${numberIncrease}"
+                        <input type="file" class="form-control" id="gallery_${id}"
                         name="product_galleries[]">
-                        <button type="button" class="btn btn-danger" onclick="removeGalleryImg('box_${numberIncrease}')"><span class="bx bx-trash"></span></button>
+                        <button type="button" class="btn btn-danger" onclick="removeGalleryImg('box_${id}')"><span class="bx bx-trash"></span></button>
                     </div>
                 </div>
 
