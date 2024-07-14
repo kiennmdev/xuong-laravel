@@ -120,6 +120,8 @@
             </div>
         </div><!--end col-->
     </div><!--end row-->
+
+    
 @endsection
 
 @section('style-libs')

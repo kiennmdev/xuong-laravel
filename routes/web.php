@@ -1,12 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\TestController;
-use App\Http\Middleware\CheckAdminMiddleware;
-use App\Http\Middleware\TestMiddleware;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\Client\Auth\LoginController;
+use App\Http\Controllers\Client\Auth\RegisterController;
+use App\Http\Controllers\Client\MyAccountController;
+use App\Http\Controllers\Client\ProductController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
+use App\Http\Middleware\CheckLoginMiddleware;
 
 
 /*
@@ -20,26 +22,49 @@ use App\Http\Middleware\TestMiddleware;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('client.home');
+Route::get('/shop', [ProductController::class, 'productList'])->name('shop');
+Route::get('/product/{slug}', [ProductController::class, 'productDetail'])->name('product.detail');
+Route::get('/cart/list', [CartController::class, 'list'])->name('cart.list');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::get('/checkout', [OrderController::class, 'view'])->name('checkout.view');
+Route::post('/checkout', [OrderController::class, 'create'])->name('checkout.create');
+
+
+
+
+
+Route::get('/login-register', [LoginController::class, 'showFormLoginAndRegister'])->name('show.form.login.register');
+Route::post('/register', [RegisterController::class, 'save'])->name('register');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/my-account', [MyAccountController::class, 'index'])->name('my.account')->middleware(CheckLoginMiddleware::class);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('auth/login', [LoginController::class, 'showFormLogin'])->name('login');
-Route::post('auth/login', [LoginController::class, 'login']);
-Route::post('auth/logout', [LoginController::class, 'logout'])->name('logout');
+// Route::get('auth/login', [LoginController::class, 'showFormLogin'])->name('login');
+// Route::post('auth/login', [LoginController::class, 'login']);
+// Route::get('auth/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('auth/register', [RegisterController::class, 'showFormRegister'])->name('register');
-Route::post('auth/register', [RegisterController::class, 'register']);
+// Route::get('auth/register', [RegisterController::class, 'showFormRegister'])->name('register');
+// Route::post('auth/register', [RegisterController::class, 'register']);
 
-Route::get('ahihi', [TestController::class, 'ahihi'])->middleware(TestMiddleware::class);
 
-Route::get('/admin', function () {
-    return 'Dday la admin';
-})->middleware('isAdmin');
+
 
 

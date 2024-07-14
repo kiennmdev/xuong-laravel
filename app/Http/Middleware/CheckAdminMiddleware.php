@@ -16,12 +16,11 @@ class CheckAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // dd(Auth::user()->isAdmin());
-        if(Auth::check() && Auth::user()->isAdmin()){
+        if(Auth::user()->isAdmin()){
             return $next($request);
         }
 
-        abort(403);
+        return redirect()->route('admin.login');
         
     }
 }

@@ -239,7 +239,7 @@ class ProductController extends Controller
                 Storage::delete($dataProduct['img_thumbnail']);
             }
 
-            // dd($exception);
+            dd($exception);
 
             return back();
         }

@@ -288,9 +288,9 @@
 
         addGalleryBtn.addEventListener('click', (e) => {
 
-            let addGalleryElement = `<div class="col-xxl-4 col-md-4">
+            let addGalleryElement = `<div id="box_${id}" class="col-xxl-4 col-md-4">
                 
-                <div id="box_${id}">
+                <div>
                     <label for="gallery_${id}" class="form-label">Image gallery</label>
                     <div class="d-flex">
                         <input type="file" class="form-control" id="gallery_${id}"
