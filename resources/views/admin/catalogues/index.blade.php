@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Basic Datatables</h5>
-                    <a href="{{ route('admin.catalogues.create') }}" class="btn btn-primary">Thêm mới</a>
+                    <a href="{{ route('admin.catalogues.create') }}" class="btn btn-success">+ Thêm mới</a>
                 </div>
                 <div class="card-body">
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
@@ -61,12 +61,12 @@
                                 </td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
-                                <td>
-                                    <a href="{{ route('admin.catalogues.show', $item->id) }}" class="btn btn-info">Xem</a>
-                                    <a href="{{ route('admin.catalogues.edit', $item->id) }}"
-                                        class="btn btn-warning">Sửa</a>
-                                    <a href="{{ route('admin.catalogues.destroy', $item->id) }}" class="btn btn-danger"
-                                        onclick="return confirm('Muốn xóa không?')">Xóa</a>
+                                <td class="text-center">
+                                    <a href="{{ route('admin.catalogues.show', $item->id) }}" class="btn btn-sm btn-soft-info fs-15"><i class="ri-eye-line"></i></a>
+                                    <a href="{{ route('admin.catalogues.edit', $item->id) }}" class="btn btn-sm btn-soft-warning fs-15"><i
+                                            class="ri-edit-2-line"></i></a>
+                                    <a href="{{ route('admin.catalogues.destroy', $item->id) }}" class="btn btn-sm btn-soft-danger fs-15"
+                                        onclick="return confirm('Muốn xóa không?')"><i class="ri-delete-bin-line"></i></a>
                                 </td>
                             </tr>
                         @endforeach

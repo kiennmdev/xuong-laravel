@@ -51,9 +51,9 @@
                             </div>
                         </div>
                         <div class="header-search_area d-none d-lg-block">
-                            <form class="search-form" action="#">
-                                <input type="text" placeholder="Search">
-                                <button class="search-button"><i class="ion-ios-search"></i></button>
+                            <form class="search-form" action="{{route('shop')}}" method="GET">
+                                <input type="text" placeholder="Search" name="search">
+                                <button class="search-button" type="submit"><i class="ion-ios-search"></i></button>
                             </form>
                         </div>
                         <div class="header-right_area d-none d-lg-inline-block">
@@ -158,10 +158,21 @@
                                 <div class="main-menu_area">
                                     <nav class="main-nav d-flex justify-content-center">
                                         <ul>
-                                            <li class="dropdown-holder"><a href="{{ route('client.home') }}">Home</a>
-                                            <li class="megamenu-holder position-static"><a
-                                                    href="{{ route('shop') }}">Shop <i class="ion-chevron-down"></i></a>
+                                            <li class="dropdown-holder"><a href="{{ route('client.home') }}">Home</a> </li>
+                                            <li class="megamenu-holder position-static">
+                                                <a href="{{ route('shop') }}">Shop <i class="ion-chevron-down"></i></a>
                                                 <ul class="kenne-megamenu">
+                                                    <li>
+                                                        <span class="megamenu-title">Catalogues</span>
+                                                        <ul>
+                                                            @foreach ($catalogues as $catalogue)
+                                                                <li>
+                                                                    <a href="{{route('shop.slug',['id' => $catalogue->id, 'slug' => $catalogue->slug])}}">{{$catalogue->name}}</a>
+                                                                </li>
+                                                            @endforeach
+
+                                                        </ul>
+                                                    </li>
                                                 </ul>
                                             </li>
                                             <li><a href="contact-us.html">Contact Us</a></li>
@@ -181,7 +192,11 @@
                                         <li class="minicart-wrap">
                                             <a href="#miniCart" class="minicart-btn toolbar-btn">
                                                 <div class="minicart-count_area">
-                                                    <span class="item-count">03</span>
+                                                    @if (session('cart'))
+
+                                                    <span class="item-count">{{session('total_quantity')}}</span>
+
+                                                @endif
                                                     <i class="ion-bag"></i>
                                                 </div>
                                             </a>

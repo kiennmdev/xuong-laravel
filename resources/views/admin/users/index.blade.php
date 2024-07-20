@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Basic Datatables</h5>
-                    <a href="{{ route('admin.catalogues.create') }}" class="btn btn-primary">Thêm mới</a>
+                    <a href="{{ route('admin.catalogues.create') }}" class="btn btn-success">+ Thêm mới</a>
                 </div>
                 <div class="card-body">
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
@@ -57,24 +57,25 @@
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @if ($user->type === 'member')
-                                        <span class="badge bg-primary">Member</span>
+                                        <span class="badge bg-info">Member</span>
                                     @else
                                         <span class="badge bg-danger">Admin</span>
                                     @endif
                                     </td>
                                     <td>
                                         @if ($user->is_active === 1)
-                                            <span class="badge bg-success">Active</span>
+                                            <span class="badge bg-success-subtle text-success text-uppercase">Active</span>
                                         @else
-                                            <span class="badge bg-danger">Inactive</span>
+                                            <span class="badge bg-danger-subtle text-danger text-uppercase">Inactive</span>
                                         @endif
                                     </td>
                                     <td class="d-flex">
-                                        <a href="{{route('admin.users.edit', $user)}}" class="btn btn-warning me-2">Edit</a>
+                                        <a href="{{route('admin.users.edit', $user)}}" class="btn btn-soft-warning me-2"><i
+                                            class="ri-edit-2-line"></i></a>
                                         <form action="{{route('admin.users.destroy', $user)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Delete</button>
+                                            <button type="submit" class="btn btn-soft-danger" onclick="return confirm('Bạn có muốn xóa không?')"><i class="ri-delete-bin-line"></i></button>
                                         </form>
                                     </td>
                                 </tr>

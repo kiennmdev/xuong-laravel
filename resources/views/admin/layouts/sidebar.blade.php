@@ -63,7 +63,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarProducts" data-bs-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="sidebarProducts">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Sản phẩm</span>
+                        <i class="ri-product-hunt-line"></i> <span data-key="t-layouts">Sản phẩm</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarProducts">
                         <ul class="nav nav-sm flex-column">
@@ -83,7 +83,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarUsers" data-bs-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="sidebarUsers">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Người dùng</span>
+                        <i class="ri-account-circle-line"></i> <span data-key="t-layouts">Người dùng</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarUsers">
                         <ul class="nav nav-sm flex-column">
@@ -102,9 +102,15 @@
                 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.order.index')}}">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Đơn hàng</span>
+                        <i class="ri-shopping-cart-2-line"></i> <span data-key="t-layouts">Đơn hàng</span>
                     </a>
 
+                </li> <!-- end Dashboard Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('admin.comments.index')}}">
+                        <i class="ri-account-circle-line"></i> <span data-key="t-layouts">Bình luận</span>
+                    </a>
                 </li> <!-- end Dashboard Menu -->
             
 

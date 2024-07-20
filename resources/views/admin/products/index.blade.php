@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Danh sách sản phẩm</h5>
-                    <a href="{{ route('admin.products.create') }}" class="btn btn-primary">Thêm mới</a>
+                    <a href="{{ route('admin.products.create') }}" class="btn btn-success">+ Thêm mới</a>
                 </div>
                 <div class="card-body">
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
@@ -103,13 +103,13 @@
                                 <td>{{ $item->updated_at }} </td>
                                 <td class="">
                                     <div class="d-inline">
-                                        <a href="{{route('admin.products.edit', $item)}}" class="btn btn-warning">Sửa</a>
-                                    </div>
+                                        <a href="{{route('admin.products.edit', $item)}}" class="btn btn-soft-warning"><i
+                                            class="ri-edit-2-line"></i></a>
                                     <form class="d-inline" action="{{route('admin.products.destroy', $item)}}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                        onclick="return confirm('Muốn xóa không?')">Delete</button>
+                                        <button type="submit" class="btn btn-soft-danger"
+                                        onclick="return confirm('Muốn xóa không?')"><i class="ri-delete-bin-line"></i></button>
                                     </form>
                                 </td>
 

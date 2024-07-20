@@ -53,8 +53,7 @@
                             <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                                 aria-labelledby="account-dashboard-tab">
                                 <div class="myaccount-dashboard">
-                                    <p>Hello <b>Edwin Adams</b> (not Edwin Adams? <a href="login-register.html">Sign
-                                            out</a>)</p>
+                                    <p>Hello <b>{{Auth::user()->name}}</b>
                                     <p>From your account dashboard you can view your recent orders, manage your shipping and
                                         billing addresses and <a href="javascript:void(0)">edit your password and account
                                             details</a>.</p>
@@ -122,22 +121,18 @@
                                 <div class="myaccount-details">
                                     <form action="#" class="kenne-form">
                                         <div class="kenne-form-inner">
-                                            <div class="single-input single-input-half">
-                                                <label for="account-details-firstname">First Name*</label>
-                                                <input type="text" id="account-details-firstname">
-                                            </div>
-                                            <div class="single-input single-input-half">
-                                                <label for="account-details-lastname">Last Name*</label>
-                                                <input type="text" id="account-details-lastname">
+                                            <div class="single-input ">
+                                                <label for="account-details-firstname">Your Name*</label>
+                                                <input type="text" id="account-details-firstname" value="{{Auth::user()->name}}">
                                             </div>
                                             <div class="single-input">
                                                 <label for="account-details-email">Email*</label>
-                                                <input type="email" id="account-details-email">
+                                                <input type="email" id="account-details-email" value="{{Auth::user()->email}}">
                                             </div>
                                             <div class="single-input">
                                                 <label for="account-details-oldpass">Current Password(leave blank to leave
                                                     unchanged)</label>
-                                                <input type="password" id="account-details-oldpass">
+                                                <input type="password" id="account-details-oldpass" >
                                             </div>
                                             <div class="single-input">
                                                 <label for="account-details-newpass">New Password (leave blank to leave

@@ -62,7 +62,7 @@
                                         <select class="form-select" name="catalogue_id" id="name">
                                             @foreach ($catalogues as $id => $name)
                                                 <option value="{{ $id }}"
-                                                    {{ $productEdit->catalogue_id == $id ? 'selected' : '' }}>
+                                                    @selected($productEdit->catalogue_id == $id)>
                                                     {{ $name }}</option>
                                             @endforeach
                                         </select>
@@ -84,7 +84,7 @@
                                             <div class="form-check form-switch form-switch-success">
                                                 <input class="form-check-input" type="checkbox" role="switch"
                                                     id="SwitchCheck2" name="is_active" value="1"
-                                                    {{ $productEdit->is_active == 1 ? 'checked' : '' }}>
+                                                    @checked($productEdit->is_active)>
                                                 <label class="form-check-label" for="SwitchCheck2">Is Active</label>
                                             </div>
 
@@ -93,7 +93,7 @@
                                             <div class="form-check form-switch form-switch-danger">
                                                 <input class="form-check-input" type="checkbox" role="switch"
                                                     id="SwitchCheck3" name="is_hot_deal" value="1"
-                                                    {{ $productEdit->is_hot_deal == 1 ? 'checked' : '' }}>
+                                                    @checked($productEdit->is_hot_deal)>
                                                 <label class="form-check-label" for="SwitchCheck3">Is Hot Deal</label>
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@
                                             <div class="form-check form-switch form-switch-info">
                                                 <input class="form-check-input" type="checkbox" role="switch"
                                                     id="SwitchCheck3" name="is_good_deal" value="1"
-                                                    {{ $productEdit->is_good_deal == 1 ? 'checked' : '' }}>
+                                                    @checked($productEdit->is_good_deal)>
                                                 <label class="form-check-label" for="SwitchCheck3">Is Good Deal</label>
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                                             <div class="form-check form-switch form-switch-primary">
                                                 <input class="form-check-input" type="checkbox" role="switch"
                                                     id="SwitchCheck3" name="is_new" value="1"
-                                                    {{ $productEdit->is_new == 1 ? 'checked' : '' }}>
+                                                    @checked($productEdit->is_new)>
                                                 <label class="form-check-label" for="SwitchCheck3">Is New</label>
                                             </div>
                                         </div>
@@ -117,7 +117,7 @@
                                             <div class="form-check form-switch form-switch-warning">
                                                 <input class="form-check-input" type="checkbox" role="switch"
                                                     id="SwitchCheck3" name="is_show_home" value="1"
-                                                    {{ $productEdit->is_show_home == 1 ? 'checked' : '' }}>
+                                                    @checked($productEdit->is_show_home)>
                                                 <label class="form-check-label" for="SwitchCheck3">Is Show Home</label>
                                             </div>
                                         </div>

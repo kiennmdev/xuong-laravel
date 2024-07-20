@@ -26,7 +26,9 @@ class CartController extends Controller
             return view('client.cart', compact('totalAmount'));
 
         } else {
-            return view('client.cart', compact('totalAmount'));
+
+            return view('client.cart');
+            
         }
     }
 

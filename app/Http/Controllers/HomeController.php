@@ -2,27 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('client.home');
+        $newProducts = Product::query()->latest('id')->where('is_new', '=', true)->limit(8)->get();
+
+        $products = Product::query()->latest('id')->limit(8)->get();
+
+        $productBestSellers = Product::query()->with('tags')->where('price_sale', '<>', null)->latest('id')->limit(4)->get();
+
+        return view('client.home', compact('newProducts', 'products', 'productBestSellers'));
     }
 }

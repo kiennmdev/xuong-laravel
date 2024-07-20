@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -32,7 +33,12 @@ Route::prefix('admin')
             });
 
         Route::resource('products', ProductController::class);
+
         Route::resource('users', UserController::class);
+
+        Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
+        Route::post('/comments/sort-delete/{comment}', [CommentController::class, 'sortDelete'])->name('comments.sortdelete');
+        Route::post('/comments/restore/{id}', [CommentController::class, 'restore'])->name('comments.restore');
     });
 
 Route::prefix('admin')->as('admin.')->group(function () {

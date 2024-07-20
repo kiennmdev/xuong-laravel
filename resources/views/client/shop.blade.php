@@ -46,93 +46,16 @@
                             </div>
                             <div class="sidebar-categories_menu">
                                 <ul>
-                                    <li class="has-sub"><a href="javascript:void(0)">Apparel<i
-                                                class="ion-ios-plus-empty"></i></a>
-                                        <ul>
-                                            <li><a href="javascript:void(0)">Maxime</a></li>
-                                            <li><a href="javascript:void(0)">Veniam Sed</a></li>
-                                            <li><a href="javascript:void(0)">Praesentium</a></li>
-                                            <li><a href="javascript:void(0)">Eligendi</a></li>
-                                            <li><a href="javascript:void(0)">Maxime</a></li>
-                                            <li><a href="javascript:void(0)">Ex deserunt</a></li>
-                                            <li><a href="javascript:void(0)">Doloremque</a></li>
-                                            <li><a href="javascript:void(0)">Facilis</a></li>
-                                            <li><a href="javascript:void(0)">Cumque Magni</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="javascript:void(0)">Footwear</a></li>
-                                    <li class="has-sub"><a href="javascript:void(0)">Sportswear <i
-                                                class="ion-ios-plus-empty"></i></a>
-                                        <ul>
-                                            <li><a href="javascript:void(0)">Daylesford</a></li>
-                                            <li><a href="javascript:void(0)">Delaware</a></li>
-                                            <li><a href="javascript:void(0)">Fayence</a></li>
-                                            <li><a href="javascript:void(0)">Mable</a></li>
-                                            <li><a href="javascript:void(0)">Mobo</a></li>
-                                            <li><a href="javascript:void(0)">Pippins</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="javascript:void(0)">Traditional</a></li>
-                                    <li><a href="javascript:void(0)">Formal Wear</a></li>
-                                    <li class="has-sub"><a href="javascript:void(0)">Accessories <i
-                                                class="ion-ios-plus-empty"></i></a>
-                                        <ul>
-                                            <li><a href="javascript:void(0)">Bedroom Furniture</a></li>
-                                            <li><a href="javascript:void(0)">Chairs</a></li>
-                                            <li><a href="javascript:void(0)">Coffee Tables</a></li>
-                                            <li><a href="javascript:void(0)">Console Tables</a></li>
-                                            <li><a href="javascript:void(0)">End Tables</a></li>
-                                            <li><a href="javascript:void(0)">Living Room Sets</a></li>
-                                            <li><a href="javascript:void(0)">Ottomans & Storage Ottomans</a></li>
-                                            <li><a href="javascript:void(0)">Sofas & Couches</a></li>
-                                            <li><a href="javascript:void(0)">TV Stands</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-sub"><a href="javascript:void(0)">Watches & Jewelry <i
-                                                class="ion-ios-plus-empty"></i></a>
-                                        <ul>
-                                            <li><a href="javascript:void(0)">Candleholders</a></li>
-                                            <li><a href="javascript:void(0)">Candles</a></li>
-                                            <li><a href="javascript:void(0)">Clocks</a></li>
-                                            <li><a href="javascript:void(0)">Floor Mirrors</a></li>
-                                            <li><a href="javascript:void(0)">Lamps & Lighting</a></li>
-                                            <li><a href="javascript:void(0)">Rugs</a></li>
-                                            <li><a href="javascript:void(0)">Runners</a></li>
-                                            <li><a href="javascript:void(0)">Wall Decor</a></li>
-                                            <li><a href="javascript:void(0)">Wall Mirrors</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-sub"><a href="javascript:void(0)">Luggage <i
-                                                class="ion-ios-plus-empty"></i></a>
-                                        <ul>
-                                            <li><a href="javascript:void(0)">Bowls</a></li>
-                                            <li><a href="javascript:void(0)">Cups, Mugs & Saucers</a></li>
-                                            <li><a href="javascript:void(0)">Cutting Boards</a></li>
-                                            <li><a href="javascript:void(0)">Dinnerware Sets</a></li>
-                                            <li><a href="javascript:void(0)">Flatware</a></li>
-                                            <li><a href="javascript:void(0)">Glassware & Drinkware</a></li>
-                                            <li><a href="javascript:void(0)">Knife Sets</a></li>
-                                            <li><a href="javascript:void(0)">Plates</a></li>
-                                            <li><a href="javascript:void(0)">Serveware</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-sub"><a href="javascript:void(0)">Handbag <i
-                                                class="ion-ios-plus-empty"></i></a>
-                                        <ul>
-                                            <li><a href="javascript:void(0)">Coffee & side tables</a></li>
-                                            <li><a href="javascript:void(0)">Living room lighting</a></li>
-                                            <li><a href="javascript:void(0)">Living room storage</a></li>
-                                            <li><a href="javascript:void(0)">Living room textiles & rugs</a></li>
-                                            <li><a href="javascript:void(0)">Sofas & armchairs</a></li>
-                                            <li><a href="javascript:void(0)">TV & media furniture</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="javascript:void(0)">Cosmetic</a></li>
-                                    <li><a href="javascript:void(0)">Uncategorized</a></li>
+                                    @foreach ($catalogues as $catalogue)
+                                        <li>
+                                            <a
+                                                href="{{ route('shop.slug', ['id' => $catalogue->id, 'slug' => $catalogue->slug]) }}">{{ $catalogue->name }}</a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
-                        <div class="kenne-sidebar_categories">
+                        {{-- <div class="kenne-sidebar_categories">
                             <div class="kenne-categories_title">
                                 <h5>Color</h5>
                             </div>
@@ -147,20 +70,17 @@
                                     <a href="javascript:void(0)">Gold (3)</a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="kenne-sidebar_categories">
                             <div class="kenne-categories_title kenne-tags_title">
                                 <h5>Product Tags</h5>
                             </div>
                             <ul class="kenne-tags_list">
-                                <li><a href="javascript:void(0)">Hoodie</a></li>
-                                <li><a href="javascript:void(0)">Jacket</a></li>
-                                <li><a href="javascript:void(0)">Frocks</a></li>
-                                <li><a href="javascript:void(0)">Crochet</a></li>
-                                <li><a href="javascript:void(0)">Scarf</a></li>
-                                <li><a href="javascript:void(0)">Shirts</a></li>
-                                <li><a href="javascript:void(0)">Men</a></li>
-                                <li><a href="javascript:void(0)">Women</a></li>
+                                @foreach ($tags as $tag)
+                                    
+                                <li><a href="javascript:void(0)">{{$tag->name}}</a></li>
+
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -173,9 +93,9 @@
                             <a class="list" data-target="listview" data-toggle="tooltip" data-placement="top"
                                 title="List View"><i class="fa fa-th-list"></i></a>
                         </div>
-                        <div class="product-page_count">
+                        {{-- <div class="product-page_count">
                             <p>Showing 1–9 of 40 results)</p>
-                        </div>
+                        </div> --}}
                         <div class="product-item-selection_area">
                             <div class="product-short">
                                 <label class="select-label">Short By:</label>
@@ -200,7 +120,7 @@
                                 <div class="product-item">
                                     <div class="single-product">
                                         <div class="product-img">
-                                            <a href="{{route('product.detail', $product->slug)}}">
+                                            <a href="{{ route('product.detail', $product->slug) }}">
                                                 <img class="primary-img"
                                                     src="{{ !\Str::contains($product->img_thumbnail, 'http') ? \Storage::url($product->img_thumbnail) : $product->img_thumbnail }}"
                                                     alt="Kenne's Product Image">
@@ -208,38 +128,42 @@
                                                     src="{{ !\Str::contains($product->img_thumbnail, 'http') ? \Storage::url($product->img_thumbnail) : $product->img_thumbnail }}"
                                                     alt="Kenne's Product Image">
                                             </a>
-                                            <span class="sticker">-{{number_format($product->price_sale/$product->price_regular*100)}}%</span>
-                                            <div class="add-actions">
+                                            <span
+                                                class="sticker">-{{ number_format(($product->price_sale / $product->price_regular) * 100) }}%</span>
+                                            {{-- <div class="add-actions">
                                                 <ul>
                                                     <li class="quick-view-btn" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModalCenter"><a href="javascript:void(0)"
                                                             data-bs-toggle="tooltip" data-placement="right"
                                                             title="Quick View"><i class="ion-ios-search"></i></a>
                                                     </li>
-                                                    <li><a href="wishlist.html" data-bs-toggle="tooltip"
+                                                    <li><a href="javascript:void(0)" data-bs-toggle="tooltip"
                                                             data-placement="right" title="Add To Wishlist"><i
                                                                 class="ion-ios-heart-outline"></i></a>
                                                     </li>
-                                                    <li><a href="compare.html" data-bs-toggle="tooltip"
+                                                    <li><a href="javascript:void(0)" data-bs-toggle="tooltip"
                                                             data-placement="right" title="Add To Compare"><i
                                                                 class="ion-ios-reload"></i></a>
                                                     </li>
-                                                    <li><a href="cart.html" data-bs-toggle="tooltip"
+                                                    <li><a href="javascript:void(0)" data-bs-toggle="tooltip"
                                                             data-placement="right" title="Add To cart"><i
                                                                 class="ion-bag"></i></a>
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div class="product-content">
                                             <div class="product-desc_info">
                                                 <h3 class="product-name single-line"><a
-                                                        href="{{route('product.detail', $product->slug)}}">{{ $product->name }}</a></h3>
+                                                        href="{{ route('product.detail', $product->slug) }}">{{ $product->name }}</a>
+                                                </h3>
                                                 <div class="price-box">
                                                     <span class="new-price">
-                                                        {{ number_format($product->price_sale, 0, ',', '.') }}<sup>đ</sup> </span>
+                                                        {{ number_format($product->price_sale, 0, ',', '.') }}<sup>đ</sup>
+                                                    </span>
                                                     <span class="old-price">
-                                                        {{ number_format($product->price_regular, 0, ',', '.') }}<sup>đ</sup> </span>
+                                                        {{ number_format($product->price_regular, 0, ',', '.') }}<sup>đ</sup>
+                                                    </span>
                                                 </div>
                                                 <div class="rating-box">
                                                     <ul>
@@ -258,17 +182,24 @@
                                 <div class="list-product_item">
                                     <div class="single-product">
                                         <div class="product-img">
-                                            <a href="{{route('product.detail', $product->slug)}}">
-                                                <img src="{{ !\Str::contains($product->img_thumbnail, 'http') ? \Storage::url($product->img_thumbnail) : $product->img_thumbnail }}" alt="Kenne's Product Image">
+                                            <a href="{{ route('product.detail', $product->slug) }}">
+                                                <img src="{{ !\Str::contains($product->img_thumbnail, 'http') ? \Storage::url($product->img_thumbnail) : $product->img_thumbnail }}"
+                                                    alt="Kenne's Product Image">
                                             </a>
                                         </div>
                                         <div class="product-content">
                                             <div class="product-desc_info">
                                                 <div class="price-box">
-                                                    <span class="new-price">{{ number_format($product->price_regular, 0, ',', '.') }}<sup>đ</sup> </span>
-                                                    <span class="old-price">{{ number_format($product->price_sale, 0, ',', '.') }}<sup>đ</sup> </span>
+                                                    <span
+                                                        class="new-price">{{ number_format($product->price_regular, 0, ',', '.') }}<sup>đ</sup>
+                                                    </span>
+                                                    <span
+                                                        class="old-price">{{ number_format($product->price_sale, 0, ',', '.') }}<sup>đ</sup>
+                                                    </span>
                                                 </div>
-                                                <h6 class="product-name"><a href="{{route('product.detail', $product->slug)}}">{{ $product->name }}</a></h6>
+                                                <h6 class="product-name"><a
+                                                        href="{{ route('product.detail', $product->slug) }}">{{ $product->name }}</a>
+                                                </h6>
                                                 <div class="rating-box">
                                                     <ul>
                                                         <li><i class="ion-ios-star"></i></li>
@@ -287,26 +218,26 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="add-actions">
+                                            {{-- <div class="add-actions">
                                                 <ul>
                                                     <li class="quick-view-btn" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModalCenter"><a href="javascript:void(0)"
                                                             data-bs-toggle="tooltip" data-placement="top"
                                                             title="Quick View"><i class="ion-ios-search"></i></a>
                                                     </li>
-                                                    <li><a href="wishlist.html" data-bs-toggle="tooltip"
+                                                    <li><a href="javascript:void(0)" data-bs-toggle="tooltip"
                                                             data-placement="top" title="Add To Wishlist"><i
                                                                 class="ion-ios-heart-outline"></i></a>
                                                     </li>
-                                                    <li><a href="compare.html" data-bs-toggle="tooltip"
+                                                    <li><a href="javascript:void(0)" data-bs-toggle="tooltip"
                                                             data-placement="top" title="Add To Compare"><i
                                                                 class="ion-ios-reload"></i></a>
                                                     </li>
-                                                    <li><a href="cart.html" data-bs-toggle="tooltip" data-placement="top"
+                                                    <li><a href="javascript:void(0)" data-bs-toggle="tooltip" data-placement="top"
                                                             title="Add To cart"><i class="ion-bag"></i></a>
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
