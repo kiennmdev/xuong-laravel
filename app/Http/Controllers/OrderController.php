@@ -84,9 +84,9 @@ class OrderController extends Controller
 
                     OrderItem::query()->create($item);
                 }
-            });
 
-            OrderCreated::dispatch(session('cart'));
+                OrderCreated::dispatch(session('cart'), $order);
+            });           
 
             session()->forget(['cart', 'total_amount']);
 

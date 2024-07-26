@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\OrderCreated;
+use App\Listeners\SaveOrderLog;
 use App\Listeners\SendMailToAdmin;
 use App\Listeners\UpdateInventory;
 use Illuminate\Auth\Events\Registered;
@@ -23,7 +24,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderCreated::class => [
             SendMailToAdmin::class,
-            UpdateInventory::class
+            UpdateInventory::class,
+            SaveOrderLog::class,
         ]
     ];
 
