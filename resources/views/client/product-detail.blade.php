@@ -227,7 +227,7 @@
                                         </form>
                                     @else
                                         <div class="text-end mb-3">
-                                            Vui lòng <a style="color: #a8741a" href="{{route('show.form.login.register')}}">đăng nhập</a> để bình luận.
+                                            Vui lòng <a style="color: #a8741a" href="{{route('form.login')}}">đăng nhập</a> để bình luận.
                                         </div>
                                     @endif
 

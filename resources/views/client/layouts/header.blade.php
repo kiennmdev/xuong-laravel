@@ -10,7 +10,10 @@
                             <ul>
                                 @if (!Auth::check())
                                     <li>
-                                        <a href="{{ route('show.form.login.register') }}">Register or Sign in</a>
+                                        <a href="{{ route('form.login') }}">Sign in</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('form.register') }}">Register</a>
                                     </li>
                                 @else
                                     <li>
@@ -51,7 +54,7 @@
                             </div>
                         </div>
                         <div class="header-search_area d-none d-lg-block">
-                            <form class="search-form" action="{{route('shop')}}" method="GET">
+                            <form class="search-form" action="{{ route('shop') }}" method="GET">
                                 <input type="text" placeholder="Search" name="search">
                                 <button class="search-button" type="submit"><i class="ion-ios-search"></i></button>
                             </form>
@@ -64,21 +67,19 @@
                                     </a>
                                 </li>
                                 <li class="minicart-wrap">
-                                        <a href="{{route('cart.list')}}" class="minicart-btn">
-                                            <div class="minicart-count_area">
-                                                @if (session('cart'))
-
-                                                    <span class="item-count">{{session('total_quantity')}}</span>
-
-                                                @endif
-                                                <i class="ion-bag"></i>
-                                            </div>
-                                            <div class="minicart-front_text">
-                                                <span>Cart:</span>
-                                                <span
-                                                    class="total-price">{{ number_format(session('total_amount') ?: 0, 0, ',', '.') }}<sup>đ</sup></span>
-                                            </div>
-                                        </a>
+                                    <a href="{{ route('cart.list') }}" class="minicart-btn">
+                                        <div class="minicart-count_area">
+                                            @if (session('cart'))
+                                                <span class="item-count">{{ count(session('cart')) }}</span>
+                                            @endif
+                                            <i class="ion-bag"></i>
+                                        </div>
+                                        <div class="minicart-front_text">
+                                            <span>Cart:</span>
+                                            <span
+                                                class="total-price">{{ number_format(session('total_amount') ?: 0, 0, ',', '.') }}<sup>đ</sup></span>
+                                        </div>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -93,10 +94,8 @@
                                     <a href="#miniCart" class="minicart-btn toolbar-btn">
                                         <div class="minicart-count_area">
                                             @if (session('cart'))
-
-                                            <span class="item-count">{{session('total_quantity')}}</span>
-
-                                        @endif
+                                                <span class="item-count">{{ count(session('cart')) }}</span>
+                                            @endif
                                             <i class="ion-bag"></i>
                                         </div>
                                     </a>
@@ -126,7 +125,7 @@
                     <div class="main-menu_area position-relative">
                         <nav class="main-nav d-flex justify-content-center">
                             <ul>
-                                <li class="dropdown-holder"><a href="{{ route('client.home') }}">Home</a>
+                                <li class="dropdown-holder"><a href="{{ route('home') }}">Home</a>
                                 </li>
                                 <li class="megamenu-holder position-static"><a href="{{ route('shop') }}">Shop <i
                                             class="ion-chevron-down"></i></a>
@@ -158,7 +157,8 @@
                                 <div class="main-menu_area">
                                     <nav class="main-nav d-flex justify-content-center">
                                         <ul>
-                                            <li class="dropdown-holder"><a href="{{ route('client.home') }}">Home</a> </li>
+                                            <li class="dropdown-holder"><a href="{{ route('home') }}">Home</a>
+                                            </li>
                                             <li class="megamenu-holder position-static">
                                                 <a href="{{ route('shop') }}">Shop <i class="ion-chevron-down"></i></a>
                                                 <ul class="kenne-megamenu">
@@ -167,7 +167,8 @@
                                                         <ul>
                                                             @foreach ($catalogues as $catalogue)
                                                                 <li>
-                                                                    <a href="{{route('shop.slug',['id' => $catalogue->id, 'slug' => $catalogue->slug])}}">{{$catalogue->name}}</a>
+                                                                    <a
+                                                                        href="{{ route('shop.slug', ['id' => $catalogue->id, 'slug' => $catalogue->slug]) }}">{{ $catalogue->name }}</a>
                                                                 </li>
                                                             @endforeach
 
@@ -193,10 +194,8 @@
                                             <a href="#miniCart" class="minicart-btn toolbar-btn">
                                                 <div class="minicart-count_area">
                                                     @if (session('cart'))
-
-                                                    <span class="item-count">{{session('total_quantity')}}</span>
-
-                                                @endif
+                                                    <span class="item-count">{{ count(session('cart')) }}</span>
+                                                    @endif
                                                     <i class="ion-bag"></i>
                                                 </div>
                                             </a>

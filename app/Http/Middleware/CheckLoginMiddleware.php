@@ -18,7 +18,7 @@ class CheckLoginMiddleware
     {
         if (!Auth::check()) {
             // Nếu người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
-            return redirect()->route('show.form.login.register');
+            return redirect()->route('form.login');
         }
 
         // Nếu người dùng đã đăng nhập, cho phép tiếp tục request

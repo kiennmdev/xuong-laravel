@@ -9,7 +9,6 @@ use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
-use App\Http\Middleware\CheckLoginMiddleware;
 
 
 /*
@@ -23,25 +22,50 @@ use App\Http\Middleware\CheckLoginMiddleware;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('client.home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/shop', [ProductController::class, 'productList'])->name('shop');
+
 Route::get('/shop/{id}/{slug}', [ProductController::class, 'productCatalogue'])->name('shop.slug');
+
 Route::get('/product/{slug}', [ProductController::class, 'productDetail'])->name('product.detail');
+
 Route::get('/cart/list', [CartController::class, 'list'])->name('cart.list');
+
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+
+Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+
 Route::get('/checkout', [OrderController::class, 'view'])->name('checkout.view');
+
 Route::post('/checkout', [OrderController::class, 'create'])->name('checkout.create');
 
 
 
 
 
-Route::get('/login-register', [LoginController::class, 'showFormLoginAndRegister'])->name('show.form.login.register');
-Route::post('/register', [RegisterController::class, 'save'])->name('register');
+Route::get('/login', [LoginController::class, 'showFormLogin'])->name('form.login');
+
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('form.register');
+
+Route::get('/verify/{token}', [LoginController::class, 'verify'])->name('verify');
+
+Route::post('/register', [RegisterController::class, 'save'])->name('register');
+
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/my-account', [MyAccountController::class, 'index'])->name('my.account')->middleware(CheckLoginMiddleware::class);
-Route::post('/comment', [CommentController::class, 'save'])->name('comment.save')->middleware(CheckLoginMiddleware::class);
+
+Route::middleware(['checkLogin'])->group(function () {
+    
+    Route::get('/my-account', [MyAccountController::class, 'index'])->name('my.account');
+
+    Route::get('/order-details/{order}', [OrderController::class, 'detail'])->name('order.details');
+
+    Route::post('/comment', [CommentController::class, 'save'])->name('comment.save');
+});
 
 
 

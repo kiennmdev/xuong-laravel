@@ -11,7 +11,7 @@
             <div class="breadcrumb-content">
                 <h2>Shop Related</h2>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{ route('home') }}">Home</a></li>
                     <li class="active">My Account</li>
                 </ul>
             </div>
@@ -43,7 +43,7 @@
                                     role="tab" aria-controls="account-details" aria-selected="false">Account Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-logout-tab" href="{{route('logout')}}" role="tab"
+                                <a class="nav-link" id="account-logout-tab" href="{{ route('logout') }}" role="tab"
                                     aria-selected="false">Logout</a>
                             </li>
                         </ul>
@@ -53,7 +53,7 @@
                             <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                                 aria-labelledby="account-dashboard-tab">
                                 <div class="myaccount-dashboard">
-                                    <p>Hello <b>{{Auth::user()->name}}</b>
+                                    <p>Hello <b>{{ Auth::user()->name }}</b>
                                     <p>From your account dashboard you can view your recent orders, manage your shipping and
                                         billing addresses and <a href="javascript:void(0)">edit your password and account
                                             details</a>.</p>
@@ -69,28 +69,23 @@
                                                 <tr>
                                                     <th>ORDER</th>
                                                     <th>DATE</th>
-                                                    <th>STATUS</th>
+                                                    <th>STATUS ORDER</th>
+                                                    <th>STATUS PAYMENT</th>
                                                     <th>TOTAL</th>
                                                     <th></th>
                                                 </tr>
-                                                <tr>
-                                                    <td><a class="account-order-id" href="javascript:void(0)">#5364</a></td>
-                                                    <td>Mar 27, 2019</td>
-                                                    <td>On Hold</td>
-                                                    <td>£162.00 for 2 items</td>
-                                                    <td><a href="javascript:void(0)"
-                                                            class="kenne-btn kenne-btn_sm"><span>View</span></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a class="account-order-id" href="javascript:void(0)">#5356</a></td>
-                                                    <td>Mar 27, 2019</td>
-                                                    <td>On Hold</td>
-                                                    <td>£162.00 for 2 items</td>
-                                                    <td><a href="javascript:void(0)"
-                                                            class="kenne-btn kenne-btn_sm"><span>View</span></a>
-                                                    </td>
-                                                </tr>
+                                                @foreach ($orders as $order)
+                                                    <tr>
+                                                        <td>#{{$order->id}}</td>
+                                                        <td>{{$order->created_at}}</td>
+                                                        <td>{{$order->status_order}}</td>
+                                                        <td>{{$order->status_payment}}</td>
+                                                        <td>{{number_format($order->total_price, 0, ',', '.')}}<sup>đ</sup></td>
+                                                        <td><a href="{{route('order.details', $order)}}"
+                                                                class="kenne-btn kenne-btn_sm"><span>View</span></a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -123,16 +118,18 @@
                                         <div class="kenne-form-inner">
                                             <div class="single-input ">
                                                 <label for="account-details-firstname">Your Name*</label>
-                                                <input type="text" id="account-details-firstname" value="{{Auth::user()->name}}">
+                                                <input type="text" id="account-details-firstname"
+                                                    value="{{ Auth::user()->name }}">
                                             </div>
                                             <div class="single-input">
                                                 <label for="account-details-email">Email*</label>
-                                                <input type="email" id="account-details-email" value="{{Auth::user()->email}}">
+                                                <input type="email" id="account-details-email"
+                                                    value="{{ Auth::user()->email }}">
                                             </div>
                                             <div class="single-input">
                                                 <label for="account-details-oldpass">Current Password(leave blank to leave
                                                     unchanged)</label>
-                                                <input type="password" id="account-details-oldpass" >
+                                                <input type="password" id="account-details-oldpass">
                                             </div>
                                             <div class="single-input">
                                                 <label for="account-details-newpass">New Password (leave blank to leave

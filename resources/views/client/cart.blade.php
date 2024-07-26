@@ -24,8 +24,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <form action="{{ route('checkout.view') }}" method="GET">
-                            @csrf
+                        <form action="{{route('cart.update')}}" method="post">
                             <div class="table-content table-responsive">
                                 <table class="table">
                                     <thead>
@@ -42,8 +41,10 @@
 
                                         @foreach (session('cart') as $idProduct => $product)
                                             <tr class="product_cart">
-                                                <td class="kenne-product-remove"><a href="javascript:void(0)"><i
-                                                            class="fa fa-trash" title="Remove"></i></a></td>
+                                                <td class="kenne-product-remove">
+                                                    <a href="{{ route('cart.destroy', $idProduct) }}"><i class="fa fa-trash"
+                                                            title="Remove"></i></a>
+                                                </td>
                                                 <td class="kenne-product-thumbnail"><a href="javascript:void(0)"><img
                                                             width="100px"
                                                             src="{{ !\Str::contains($product['image'], 'http') ? \Storage::url($product['image']) : $product['image'] }}"
@@ -64,7 +65,7 @@
                                                     <label>Quantity</label>
                                                     <div class="cart-plus-minus">
                                                         <input class="cart-plus-minus-box quantity_product"
-                                                            value="{{ $product['quantity_purchase'] }}" type="number">
+                                                            value="{{ $product['quantity_purchase'] }}" type="number" name="product_variant[{{$idProduct}}]">
                                                         <div class="dec qtybutton decrementButton"><i
                                                                 class="fa fa-angle-down"></i></div>
                                                         <div class="inc qtybutton incrementButton"><i
@@ -72,9 +73,9 @@
                                                     </div>
                                                 </td>
                                                 <td class="product-subtotal">
-                                                    <span class="amount total">
+                                                    <span class="amount total"> {{number_format($product['quantity_purchase'] * $price, 0, ',', '.')}}
                                                     </span><sup>đ</sup>
-                                                    <input type="hidden" name="total_price" class="totalPost">
+                                                    {{-- <input type="hidden" name="total_price" class="totalPost"> --}}
                                                     <input type="hidden" class="id_product" value="{{ $idProduct }}">
                                                 </td>
                                             </tr>
@@ -82,37 +83,37 @@
                                     </tbody>
                                 </table>
                             </div>
+
                             <div class="row">
                                 <div class="col-12">
                                     <div class="coupon-all">
-                                        <div class="coupon">
-                                            <input id="coupon_code" class="input-text" name="coupon_code" value=""
-                                                placeholder="Coupon code" type="text">
-                                            <input class="button" name="apply_coupon" value="Apply coupon" type="button">
-                                        </div>
                                         <div class="coupon2">
-                                            <input class="button" name="update_cart" value="Update cart" type="button">
+                                            @csrf
+                                            <input class="button" value="Update cart" type="submit">
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5 ml-auto">
-                                    <div class="cart-page-total">
-                                        <h2>Cart totals</h2>
-                                        <ul>
-                                            <li>Subtotal
-                                                <span>{{ number_format($totalAmount, 0, ',', '.') }}<sup>đ</sup></span>
-                                            </li>
-                                            <li>Total
-                                                <span>{{ number_format($totalAmount, 0, ',', '.') }}<sup>đ</sup></span>
-                                            </li>
-                                        </ul>
-                                        <button type="submit" class="checkout mt-3">Proceed to checkout</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
+                        <div class="row">
+                            <div class="col-md-5 ml-auto">
+                                <div class="cart-page-total">
+                                    <h2>Cart totals</h2>
+                                    <ul>
+                                        <li>Subtotal
+                                            <span>{{ number_format(session('total_amount'), 0, ',', '.') }}<sup>đ</sup></span>
+                                        </li>
+                                        <li>Total
+                                            <span>{{ number_format(session('total_amount'), 0, ',', '.') }}<sup>đ</sup></span>
+                                        </li>
+                                    </ul>
+                                    <form action="{{ route('checkout.view') }}" method="GET">
+                                        @csrf
+                                        <button type="submit" class="checkout mt-3">Proceed to checkout</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,7 +124,8 @@
                 <div class="row">
                     <div class="col-12 text-center">
                         <h5>
-                            Giỏ hàng chưa có sản phẩm! <a href="{{route('shop')}}" class="text-decoration-underline">Quay lại</a>
+                            Giỏ hàng chưa có sản phẩm! <a href="{{ route('shop') }}" class="text-decoration-underline">Quay
+                                lại</a>
                         </h5>
                     </div>
                 </div>
@@ -157,37 +159,37 @@
 
 @section('scripts')
     <script>
-        $(document).ready(function() {
-            function totalPrice(productCart) {
-                let quantity = productCart.find('.quantity_product').val();
-                let priceInput = productCart.find('.price').val();
-                let total = quantity * priceInput;
-                let totalFormat = total.toLocaleString('vi-VN');
-                productCart.find('.total').text(totalFormat);
-                productCart.find('.totalPost').val(total);
-            }
+        // $(document).ready(function() {
+        //     function totalPrice(productCart) {
+        //         let quantity = productCart.find('.quantity_product').val();
+        //         let priceInput = productCart.find('.price').val();
+        //         let total = quantity * priceInput;
+        //         let totalFormat = total.toLocaleString('vi-VN');
+        //         productCart.find('.total').text(totalFormat);
+        //         productCart.find('.totalPost').val(total);
+        //     }
 
-            // Sự kiện khi click vào nút tăng
-            $('.incrementButton').click(function() {
-                var productCart = $(this).closest('.product_cart');
-                totalPrice(productCart);
-            });
+        //     // Sự kiện khi click vào nút tăng
+        //     $('.incrementButton').click(function() {
+        //         var productCart = $(this).closest('.product_cart');
+        //         totalPrice(productCart);
+        //     });
 
-            // Sự kiện khi click vào nút giảm
-            $('.decrementButton').click(function(productCart) {
-                var productCart = $(this).closest('.product_cart');
-                totalPrice(productCart);
-            });
+        //     // Sự kiện khi click vào nút giảm
+        //     $('.decrementButton').click(function(productCart) {
+        //         var productCart = $(this).closest('.product_cart');
+        //         totalPrice(productCart);
+        //     });
 
-            $('.quantity_product').on('input change', function() {
-                var productCart = $(this).closest('.product_cart');
-                totalPrice(productCart);
-            });
+        //     $('.quantity_product').on('input change', function() {
+        //         var productCart = $(this).closest('.product_cart');
+        //         totalPrice(productCart);
+        //     });
 
-            $('.product_cart').each(function() {
-                totalPrice($(this));
-            });
+        //     $('.product_cart').each(function() {
+        //         totalPrice($(this));
+        //     });
 
-        });
+        // });
     </script>
 @endsection

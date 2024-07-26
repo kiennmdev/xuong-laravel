@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <form action="{{route('checkout.create')}}" method="POST" class="row">
+            <form action="{{ route('checkout.create') }}" method="POST" class="row">
                 @csrf
                 <div class="col-lg-6 col-12">
 
@@ -71,33 +71,61 @@
                         <h3>Billing Details</h3>
                         <div class="row">
 
-                            <div class="col-md-12">
-                                <div class="checkout-form-list">
-                                    <label>Your Name <span class="required">*</span></label>
-                                    <input placeholder="" type="text" name="user_name">
+                            @if (!Auth::check())
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Your Name <span class="required">*</span></label>
+                                        <input placeholder="Your Name" type="text" name="user_name" value="">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-12">
-                                <div class="checkout-form-list">
-                                    <label>Address <span class="required">*</span></label>
-                                    <input placeholder="Address" type="text" name="user_address">
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Address <span class="required">*</span></label>
+                                        <input placeholder="Address" type="text" name="user_address" value="">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkout-form-list">
-                                    <label>Email Address <span class="required">*</span></label>
-                                    <input placeholder="" type="email" name="user_email">
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>Email Address <span class="required">*</span></label>
+                                        <input placeholder="Email Address" type="email" name="user_email" value="">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkout-form-list">
-                                    <label>Phone <span class="required">*</span></label>
-                                    <input type="text" name="user_phone">
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>Phone <span class="required">*</span></label>
+                                        <input placeholder="Phone" type="text" name="user_phone" value="">
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Your Name <span class="required">*</span></label>
+                                        <input placeholder="Your Name" type="text" name="user_name" value="{{Auth::user()->name}}">
+                                    </div>
+                                </div>
 
-                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Address <span class="required">*</span></label>
+                                        <input placeholder="Address" type="text" name="user_address" value="{{Auth::user()->address}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>Email Address <span class="required">*</span></label>
+                                        <input placeholder="Email Address" type="email" name="user_email" value="{{Auth::user()->email}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>Phone <span class="required">*</span></label>
+                                        <input placeholder="Phone" type="text" name="user_phone" value="{{Auth::user()->phone}}">
+                                    </div>
+                                </div>
+                            @endif
+
+                            {{-- <div class="col-md-12">
                                 <div class="checkout-form-list create-acc">
                                     <input id="cbox" type="checkbox">
                                     <label>Create an account?</label>
@@ -108,9 +136,9 @@
                                     <label>Account password <span class="required">*</span></label>
                                     <input placeholder="password" type="password">
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
-                        <div class="different-address">
+                        {{-- <div class="different-address">
                             <div class="ship-different-title">
                                 <h3>
                                     <label>Ship to a different address?</label>
@@ -198,7 +226,7 @@
                                         placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                 </div>

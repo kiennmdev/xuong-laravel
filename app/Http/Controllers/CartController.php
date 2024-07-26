@@ -10,26 +10,10 @@ class CartController extends Controller
 {
     public function list()
     {
-        if (session('cart')) {
-            $cart = session('cart');
 
-            $totalAmount = 0;
-            $totalQuantity = 0;
-            foreach ($cart as $item) {
-                $totalAmount += $item['quantity_purchase'] * ($item['price_sale'] ?: $item['price_regular']);
-                $totalQuantity +=  $item['quantity_purchase'];
-            }
-            
-            session()->put('total_amount', $totalAmount);
-            session()->put('total_quantity', $totalQuantity);
+        $this->calTotalPriceAndQuantity();;
 
-            return view('client.cart', compact('totalAmount'));
-
-        } else {
-
-            return view('client.cart');
-            
-        }
+        return view('client.cart');
     }
 
     public function add()
@@ -53,5 +37,52 @@ class CartController extends Controller
             session()->put('cart.' . $productVariant->id, $data);
         }
         return redirect()->route('cart.list');
+    }
+
+    public function update()
+    {
+
+        $newQuantity = request()->product_variant;
+        $data = session('cart');
+
+        foreach ($newQuantity as $idProductVariant => $quantity) {
+            if ($quantity <= 0) {
+                $quantity = 1;
+            }
+                foreach ($data as $id => $item) {
+                    if ($id === $idProductVariant) {
+                        $data[$id]['quantity_purchase'] = $quantity;
+                    }
+                }
+        }
+
+        session()->put('cart', $data);
+
+        return back();
+    }
+
+    public function destroy(string $id)
+    {
+        $data = session('cart');
+        unset($data[$id]);
+        session()->put('cart', $data);
+
+        $this->calTotalPriceAndQuantity();
+
+        return back();
+    }
+
+    public function calTotalPriceAndQuantity()
+    {
+        $cart = session('cart');
+
+        $totalAmount = 0;
+        $totalQuantity = 0;
+        foreach ($cart as $item) {
+            $totalAmount += $item['quantity_purchase'] * ($item['price_sale'] ?: $item['price_regular']);
+            $totalQuantity +=  $item['quantity_purchase'];
+        }
+
+        session()->put('total_amount', $totalAmount);
     }
 }

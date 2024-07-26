@@ -56,4 +56,8 @@ class Order extends Model
         'status_payment',
         'total_price',
     ];
+
+    public function order_items() {
+        return $this->hasMany(OrderItem::class);
+    }
 }
