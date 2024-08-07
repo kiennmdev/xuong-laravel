@@ -1,15 +1,16 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\Auth\LoginController;
 use App\Http\Controllers\Client\Auth\RegisterController;
+use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\MyAccountController;
 use App\Http\Controllers\Client\ProductController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\Client\CommentController;
+use App\Http\Controllers\Client\OrderController;
+use App\Http\Controllers\Client\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,7 @@ Route::get('/shop/{id}/{slug}', [ProductController::class, 'productCatalogue'])-
 
 Route::get('/product/{slug}', [ProductController::class, 'productDetail'])->name('product.detail');
 
-Route::get('/cart/list', [CartController::class, 'list'])->name('cart.list');
+Route::get('/cart', [CartController::class, 'list'])->name('cart.list');
 
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
@@ -40,7 +41,15 @@ Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart
 
 Route::get('/checkout', [OrderController::class, 'view'])->name('checkout.view');
 
+Route::post('/add/coupon', [OrderController::class, 'addCoupon'])->name('add.coupon');
+
+Route::get('/delete/coupon', [OrderController::class, 'deleteCoupon'])->name('delete.coupon');
+
 Route::post('/checkout', [OrderController::class, 'create'])->name('checkout.create');
+
+Route::get('/payment/momo', [PaymentController::class, 'momoPayment'])->name('payment.momo');
+
+Route::get('/handle/momo', [PaymentController::class, 'handleOrder'])->name('handle.momo');
 
 
 
@@ -52,9 +61,9 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('form.register');
 
-Route::get('/verify/{token}', [LoginController::class, 'verify'])->name('verify');
-
 Route::post('/register', [RegisterController::class, 'save'])->name('register');
+
+Route::get('/verify/{token}', [LoginController::class, 'verify'])->name('verify');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -62,9 +71,12 @@ Route::middleware(['checkLogin'])->group(function () {
     
     Route::get('/my-account', [MyAccountController::class, 'index'])->name('my.account');
 
-    Route::get('/order-details/{order}', [OrderController::class, 'detail'])->name('order.details');
+    Route::get('/order/detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
+
+    Route::put('/user/update/{user}', [UserController::class, 'update'])->name('user.update');
 
     Route::post('/comment', [CommentController::class, 'save'])->name('comment.save');
+    
 });
 
 
@@ -81,6 +93,11 @@ Route::middleware(['checkLogin'])->group(function () {
 
 
 // Auth::routes();
+/**
+ * composer require laravel/ui
+ * php artisan ui bootstrap -auth
+ * npm rundev
+ */
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

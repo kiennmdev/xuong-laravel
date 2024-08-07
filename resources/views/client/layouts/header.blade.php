@@ -21,10 +21,7 @@
                                     </li>
                                 @endif
                                 <li>
-                                    <a href="wishlist.html">Wishlist</a>
-                                </li>
-                                <li>
-                                    <a href="checkout.html">Checkout</a>
+                                    <a href="{{ route('checkout.view') }}">Checkout</a>
                                 </li>
                             </ul>
                         </div>
@@ -127,8 +124,22 @@
                             <ul>
                                 <li class="dropdown-holder"><a href="{{ route('home') }}">Home</a>
                                 </li>
-                                <li class="megamenu-holder position-static"><a href="{{ route('shop') }}">Shop <i
-                                            class="ion-chevron-down"></i></a>
+                                <li class="megamenu-holder position-static">
+                                    <a href="{{ route('shop') }}">Shop <i class="ion-chevron-down"></i></a>
+                                    <ul class="kenne-megamenu">
+                                        <li>
+                                            <span class="megamenu-title">Catalogues</span>
+                                            <ul>
+                                                @foreach ($catalogues as $catalogue)
+                                                    <li>
+                                                        <a
+                                                            href="{{ route('shop.slug', ['id' => $catalogue->id, 'slug' => $catalogue->slug]) }}">{{ $catalogue->name }}</a>
+                                                    </li>
+                                                @endforeach
+
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li><a href="contact-us.html">Contact Us</a></li>
                                 <li><a href="about-us.html">About Us</a></li>
@@ -191,10 +202,10 @@
                                             </a>
                                         </li>
                                         <li class="minicart-wrap">
-                                            <a href="#miniCart" class="minicart-btn toolbar-btn">
+                                            <a href="{{ route('cart.list') }}" class="minicart-btn">
                                                 <div class="minicart-count_area">
                                                     @if (session('cart'))
-                                                    <span class="item-count">{{ count(session('cart')) }}</span>
+                                                        <span class="item-count">{{ count(session('cart')) }}</span>
                                                     @endif
                                                     <i class="ion-bag"></i>
                                                 </div>
@@ -219,7 +230,7 @@
             </div>
         </div>
     </div>
-    <div class="offcanvas-minicart_wrapper" id="miniCart">
+    {{-- <div class="offcanvas-minicart_wrapper" id="miniCart">
         <div class="offcanvas-menu-inner">
             <a href="#" class="btn-close"><i class="ion-android-close"></i></a>
             <div class="minicart-content">
@@ -278,7 +289,7 @@
                 <a href="checkout.html" class="kenne-btn kenne-btn_fullwidth">Checkout</a>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="mobile-menu_wrapper" id="mobileMenu">
         <div class="offcanvas-menu-inner">
             <div class="container">
@@ -615,8 +626,12 @@
             <div class="offcanvas-component">
                 <span class="offcanvas-component_title">My Account</span>
                 <ul class="offcanvas-component_menu">
-                    <li><a href="my-account.html">Register</a></li>
-                    <li><a href="login-register.html">Login</a></li>
+                    @auth
+                        <li><a href="{{ route('my.account') }}">{{ Auth::user()->name }}</a></li>
+                    @else
+                        <li><a href="{{ route('form.register') }}">Register</a></li>
+                        <li><a href="{{ route('form.login') }}">Login</a></li>
+                    @endauth
                 </ul>
             </div>
             <div class="offcanvas-inner-social_link">
@@ -661,8 +676,8 @@
                 <a href="#" class="btn-close"><i class="ion-android-close"></i></a>
                 <!-- Begin Offcanvas Search Area -->
                 <div class="offcanvas-search">
-                    <form action="#" class="hm-searchbox">
-                        <input type="text" placeholder="Search for item...">
+                    <form action="{{ route('shop') }}" class="hm-searchbox" method="GET">
+                        <input type="text" placeholder="Search for item..." name="search">
                         <button class="search_btn" type="submit"><i class="ion-ios-search-strong"></i></button>
                     </form>
                 </div>

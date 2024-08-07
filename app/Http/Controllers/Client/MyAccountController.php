@@ -13,7 +13,7 @@ class MyAccountController extends Controller
 
         $userID = Auth::user()->id;
 
-        $orders = Order::query()->where('user_id', '=', $userID)->get();
+        $orders = Order::query()->where('user_id', '=', $userID)->latest('id')->get();
 
         return view('client.my-account', compact('orders'));
     }

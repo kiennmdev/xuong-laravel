@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Danh sách account
+    Danh sách banner
 @endsection
 
 @section('content')
@@ -10,12 +10,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Datatables</h4>
+                <h4 class="mb-sm-0">Danh sách banner</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                        <li class="breadcrumb-item active">Datatables</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Banner</a></li>
+                        <li class="breadcrumb-item active">Danh sách</li>
                     </ol>
                 </div>
 
@@ -29,8 +29,8 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Basic Datatables</h5>
-                    <a href="{{ route('admin.catalogues.create') }}" class="btn btn-success">+ Thêm mới</a>
+                    <h5 class="card-title mb-0">Danh sách banner</h5>
+                    <a href="{{ route('admin.banners.create') }}" class="btn btn-success">+ Thêm mới</a>
                 </div>
                 <div class="card-body">
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
@@ -38,55 +38,37 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Avatar</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Type</th>
-                                <th>Is Active</th>
+                                <th>Image</th>
+                                <th>Created at</th>
+                                <th>Updated at</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($users as $user)
-                                <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>
-                                        <img src="{{\Storage::url($user->avatar)}}" alt="" width="50px">
-                                    </td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>
-                                        @if ($user->type === 'member')
-                                        <span class="badge bg-info">Member</span>
-                                    @else
-                                        <span class="badge bg-danger">Admin</span>
-                                    @endif
-                                    </td>
-                                    <td>
-                                        @if ($user->is_active)
-                                            <span class="badge bg-success-subtle text-success text-uppercase">Active</span>
-                                        @else
-                                            <span class="badge bg-danger-subtle text-danger text-uppercase">Inactive</span>
-                                        @endif
-                                    </td>
-                                    <td class="d-flex">
-                                        <a href="{{route('admin.users.edit', $user)}}" class="btn btn-soft-warning me-2"><i
+                        @foreach ($data as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>
+                                    <img src="{{ \Storage::url($item->image) }}" alt="" width="100px">
+                                </td>
+                                <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->updated_at }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('admin.banners.show', $item) }}" class="btn btn-sm btn-soft-info fs-15"><i class="ri-eye-line"></i></a>
+                                    <a href="{{ route('admin.banners.edit', $item) }}" class="btn btn-sm btn-soft-warning fs-15"><i
                                             class="ri-edit-2-line"></i></a>
-                                        <form action="{{route('admin.users.destroy', $user)}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-soft-danger" onclick="return confirm('Bạn có muốn xóa không?')"><i class="ri-delete-bin-line"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                                    <form class="d-inline-block" action="{{ route('admin.banners.destroy', $item) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-soft-danger fs-15" onclick="return confirm('Muốn xóa không?')"><i class="ri-delete-bin-line"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>
         </div><!--end col-->
     </div><!--end row-->
-
 @endsection
 
 @section('style-libs')

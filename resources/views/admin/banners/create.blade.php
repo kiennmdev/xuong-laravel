@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Thêm mới danh mục
+    Thêm mới banner
 @endsection
 
 @section('content')
@@ -9,11 +9,11 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Thêm mới danh mục</h4>
+                <h4 class="mb-sm-0">Thêm mới banner</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.catalogues.index') }}">Danh mục</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.catalogues.index') }}">Banner</a></li>
                         <li class="breadcrumb-item active">Thêm mới</li>
                     </ol>
                 </div>
@@ -23,7 +23,7 @@
     </div>
     <!-- end page title -->
 
-    <form action="{{ route('admin.catalogues.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.banners.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-lg-12">
@@ -32,20 +32,12 @@
                         <div class="live-preview">
                             <div class="row gy-4">
                                <div class="col-7">
+
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name:</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter name"
-                                        name="name">
+                                    <label for="image" class="form-label">Image:</label>
+                                    <input type="file" class="form-control" id="image" name="image">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="cover" class="form-label">File:</label>
-                                    <input type="file" class="form-control" id="cover" name="cover">
-                                </div>
-                                <div class="mb-3 ms-1 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
-                                        name="is_active" checked>
-                                    <label class="form-check-label" for="exampleCheck1">Is active</label>
-                                </div>
+
                                </div>
                                 <div class="col-5">
 

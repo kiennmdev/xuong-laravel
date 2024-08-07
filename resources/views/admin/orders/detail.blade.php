@@ -50,7 +50,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($orderItems as $item)
-                                    
                                 <tr>
                                     <td>
                                         <div class="d-flex">
@@ -77,6 +76,14 @@
                                 </tr>
                                 
                                 @endforeach
+
+                                @php
+                                $totalTemp = 0;
+                                foreach ($orderItems as $item) {
+                                    $totalTemp += $item->product_price_sale * $item->quantity;
+                                }
+                                @endphp
+                                
                                 <tr class="border-top border-top-dashed">
                                     <td colspan="3"></td>
                                     <td colspan="2" class="fw-medium p-0">
@@ -84,19 +91,11 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Sub Total :</td>
-                                                    <td class="text-end">{{$order->total_price}}<sup>đ</sup></td>
+                                                    <td class="text-end">{{$totalTemp}}<sup>đ</sup></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Discount <span class="text-muted">(VELZON15)</span> :</td>
-                                                    <td class="text-end">0<sup>đ</sup></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shipping Charge :</td>
-                                                    <td class="text-end">0<sup>đ</sup></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Estimated Tax :</td>
-                                                    <td class="text-end">0<sup>đ</sup></td>
+                                                    <td>Discount <span class="text-muted"></span> :</td>
+                                                    <td class="text-end">-{{$order->discount}}<sup>đ</sup></td>
                                                 </tr>
                                                 <tr class="border-top border-top-dashed">
                                                     <th scope="row">Total :</th>

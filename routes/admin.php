@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\BannerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -11,14 +13,16 @@ use App\Http\Controllers\Admin\UserController;
 
 Route::prefix('admin')
     ->as('admin.')
-    ->middleware(['auth','isAdmin'])
+    ->middleware(['auth', 'isAdmin'])
     ->group(function () {
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::get('order', [OrderController::class, 'index'])->name('order.index');
-        Route::put('order/{order}', [OrderController::class, 'update'])->name('order.update');
-        Route::get('order-detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
+        Route::prefix('order')->as('order.')->group(function () {
+            Route::get('/', [OrderController::class, 'index'])->name('index');
+            Route::put('{order}', [OrderController::class, 'update'])->name('update');
+            Route::get('detail/{order}', [OrderController::class, 'detail'])->name('detail');
+        });
 
         Route::prefix('catalogues')
             ->as('catalogues.')
@@ -36,15 +40,19 @@ Route::prefix('admin')
 
         Route::resource('users', UserController::class);
 
-        Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
-        Route::post('/comments/sort-delete/{comment}', [CommentController::class, 'sortDelete'])->name('comments.sortdelete');
-        Route::post('/comments/restore/{id}', [CommentController::class, 'restore'])->name('comments.restore');
+        Route::resource('banners', BannerController::class);
+
+        Route::resource('coupon', CouponController::class);
+
+        Route::prefix('comment')->as('comments.')->group(function () {
+            Route::get('/', [CommentController::class, 'index'])->name('index');
+            Route::post('sort-delete/{comment}', [CommentController::class, 'sortDelete'])->name('sortdelete');
+            Route::post('restore/{id}', [CommentController::class, 'restore'])->name('restore');
+        });
     });
 
 Route::prefix('admin')->as('admin.')->group(function () {
-    
     Route::get('login', [LoginController::class, 'showFormLogin'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-    
 });

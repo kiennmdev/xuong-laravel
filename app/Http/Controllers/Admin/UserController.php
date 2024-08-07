@@ -78,25 +78,30 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        // dd($user->toArray());
-        $data = $request->except('_token', '_method');
+        // dd($request->all());
+        $data = $request->all();
+
         $msg = 'Cập nhật thành công';
+
         $avatarOld = $user->avatar;
 
         try {
             DB::beginTransaction();
-            if (isset($data['avatar'])) {
+            if ($request->hasFile('avatar')) {
+
                 $data['avatar'] = Storage::put('users', $data['avatar']);
             }
             // throw new Exception("Error Processing Request", 1);
-            
-            $userUpdate = User::query()->where('id', $user->id)->update($data);
+
+            $user->update($data);
 
             DB::commit();
 
-            return back()->with('msg', $msg);
+            if (!is_null($avatarOld)) {
+                Storage::delete($avatarOld);
+            }
 
-            
+            return back()->with('msg', $msg);
         } catch (Exception $exception) {
 
             Storage::delete($data['avatar']);

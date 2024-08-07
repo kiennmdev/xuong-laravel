@@ -121,10 +121,9 @@
                                     </div>
                                     <div class="footer-widgets">
                                         <ul>
-                                            <li><a href="javascript:void(0)">Product</a></li>
-                                            <li><a href="javascript:void(0)">My Cart</a></li>
-                                            <li><a href="javascript:void(0)">Wishlist</a></li>
-                                            <li><a href="javascript:void(0)">Cart</a></li>
+                                            <li><a href="{{route('shop')}}">Product</a></li>
+                                            <li><a href="{{route('cart.list')}}">Cart</a></li>
+                                            <li><a href="{{route('checkout.view')}}">Checkout</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -134,8 +133,12 @@
                                     </div>
                                     <div class="footer-widgets">
                                         <ul>
-                                            <li><a href="javascript:void(0)">Login</a></li>
-                                            <li><a href="javascript:void(0)">Register</a></li>
+                                            @auth
+                                                <li><a href="{{ route('my.account') }}">My account</a></li>
+                                            @else
+                                                <li><a href="{{ route('form.login') }}">Login</a></li>
+                                                <li><a href="{{ route('form.register') }}">Register</a></li>
+                                            @endauth
                                             <li><a href="javascript:void(0)">Help</a></li>
                                             <li><a href="javascript:void(0)">Support</a></li>
                                         </ul>

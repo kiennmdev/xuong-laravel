@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendMailToAdmin
+class SendInvoiceToCustomer
 {
     /**
      * Create the event listener.
@@ -22,9 +22,14 @@ class SendMailToAdmin
      */
     public function handle(OrderCreated $event): void
     {
-        Mail::send('mails/emailOrderToAdmin', [],function ($message) {
-            $message->to('kiennmph41026@fpt.edu.vn', 'Tutorials Point')
-            ->subject('Laravel Basic Testing Mail');
+        $data = [
+            'order' => $event->order->toArray(),
+            'orderItems' => $event->orderItems
+        ];
+
+        Mail::send('mails/emailInvoice', $data,function ($message) use ($event) {
+            $message->to($event->order->user_email, $event->order->user_name)
+            ->subject('Hóa đơn từ cửa hàng Kenne');
         });
 
     }

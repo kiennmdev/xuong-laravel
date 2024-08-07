@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Events\OrderCreated;
 use App\Listeners\SaveOrderLog;
-use App\Listeners\SendMailToAdmin;
+use App\Listeners\SendInvoiceToCustomer;
 use App\Listeners\UpdateInventory;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -23,7 +23,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         OrderCreated::class => [
-            SendMailToAdmin::class,
+            SendInvoiceToCustomer::class,
             UpdateInventory::class,
             SaveOrderLog::class,
         ]

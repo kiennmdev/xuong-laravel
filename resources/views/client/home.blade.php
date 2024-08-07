@@ -29,38 +29,85 @@
                     "slidesToShow": 1
                     }}
                 ]'>
-            <div class="slide-item bg-3 animation-style-01 white-color">
-                <div class="slider-progress"></div>
-                <div class="container">
-                    <div class="slide-content">
-                        <span>Exclusive Offer -20% Off This Week</span>
-                        <h2>Accessories <br> Explore Trending</h2>
-                        <p class="short-desc">Aliquam error eos cumque aut repellat quasi accusantium inventore
-                            necessitatibus. Vel quisquam distinctio in inventore dolorum.</p>
-                        <div class="slide-btn">
-                            <a class="kenne-btn transparent-btn" href="shop-left-sidebar.html">shop now</a>
+
+            @foreach ($banners as $banner)
+                <div class="slide-item bg-3 animation-style-01"
+                    style="background-image: url({{ Storage::url($banner->image) }})">
+                    <div class="slider-progress"></div>
+                    <div class="container">
+                        <div class="slide-content">
+                            <span>Exclusive Offer -20% Off This Week</span>
+                            <h2>Accessories <br> Explore Trending</h2>
+                            <p class="short-desc">Aliquam error eos cumque aut repellat quasi accusantium inventore
+                                necessitatibus. Vel quisquam distinctio in inventore dolorum.</p>
+                            <div class="slide-btn">
+                                <a class="kenne-btn" href="{{ route('shop') }}">shop now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="slide-item bg-4 animation-style-01">
-                <div class="slider-progress"></div>
-                <div class="container">
-                    <div class="slide-content">
-                        <span>Exclusive Offer -10% Off This Week</span>
-                        <h2>Stylist <br> Female Clothes</h2>
-                        <p class="short-desc-2">Made from Soft, Durable, US-grown Supima cotton.</p>
-                        <div class="slide-btn">
-                            <a class="kenne-btn" href="shop-left-sidebar.html">shop now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
         </div>
 
     </div>
     <!-- Slider Area Two End Here -->
+
+    <!-- Begin Coupon Area -->
+    <div class="product-tab_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h3>Featured Offer</h3>
+                        <div class="product-tab">
+                            <ul class="nav product-menu">
+                                <li><a href=""><span>All Offers</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="tab-content kenne-tab_content">
+                        <div id="bag" class="tab-pane active show" role="tabpanel">
+                            <div class="kenne-element-carousel product-tab_slider slider-nav product-tab_arrow"
+                                data-slick-options='{
+                                                "slidesToShow": 4,
+                                                "slidesToScroll": 1,
+                                                "infinite": false,
+                                                "arrows": true,
+                                                "dots": false,
+                                                "spaceBetween": 30
+                                                }'
+                                data-slick-responsive='[
+                                                {"breakpoint":992, "settings": {
+                                                "slidesToShow": 3
+                                                }},
+                                                {"breakpoint":768, "settings": {
+                                                "slidesToShow": 2
+                                                }},
+                                                {"breakpoint":575, "settings": {
+                                                "slidesToShow": 1
+                                                }}
+                                            ]'>
+
+                                @foreach ($coupons as $coupon)
+                                    <div class="coupon">
+                                        <div class="code">{{$coupon->code}}</div>
+                                        <div class="discount">{{$coupon->description}}</div>
+                                        <div class="expiry">Hết hạn vào: {{\Carbon\Carbon::parse($coupon->expiry)->format('d-m-Y')}}</div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Coupon Area End Here -->
 
     <!-- Begin Banner Area Three -->
     <div class="banner-area-3">
@@ -137,7 +184,7 @@
                             <div class="product-item">
                                 <div class="single-product">
                                     <div class="product-img">
-                                        <a href="single-product.html">
+                                        <a href="{{ route('product.detail', $newProduct->slug) }}">
                                             <img class="primary-img" src="{{ Storage::url($newProduct->img_thumbnail) }}"
                                                 alt="Kenne's Product Image">
                                             <img class="secondary-img" src="{{ Storage::url($newProduct->img_thumbnail) }}"
@@ -161,7 +208,8 @@
                                     <div class="product-content">
                                         <div class="product-desc_info">
                                             <h3 class="product-name"><a
-                                                    href="single-product.html">{{ $newProduct->name }}</a></h3>
+                                                    href="{{ route('product.detail', $newProduct->slug) }}">{{ $newProduct->name }}</a>
+                                            </h3>
                                             <div class="price-box">
                                                 <span
                                                     class="new-price">{{ number_format($newProduct->price_sale, 0, ',', '.') }}<sup>đ</sup></span>
@@ -261,7 +309,7 @@
                                     <div class="product-item">
                                         <div class="single-product">
                                             <div class="product-img">
-                                                <a href="single-product.html">
+                                                <a href="{{ route('product.detail', $product->slug) }}">
                                                     <img class="primary-img"
                                                         src="{{ Storage::url($product->img_thumbnail) }}"
                                                         alt="Kenne's Product Image">
@@ -288,7 +336,8 @@
                                             <div class="product-content">
                                                 <div class="product-desc_info">
                                                     <h3 class="product-name"><a
-                                                            href="single-product.html">{{ $product->name }}</a></h3>
+                                                            href="{{ route('product.detail', $product->slug) }}">{{ $product->name }}</a>
+                                                    </h3>
                                                     <div class="price-box">
                                                         <span
                                                             class="new-price">{{ number_format($product->price_sale, 0, ',', '.') }}<sup>đ</sup></span>
@@ -354,32 +403,34 @@
                             }}
                         ]'>
                         @foreach ($productBestSellers as $productBestSeller)
-                        
-                        <div class="product-item">
-                            <div class="single-product">
-                                <div class="product-img">
-                                    <a href="single-product.html">
-                                        <img class="primary-img"
-                                            src="{{ Storage::url($productBestSeller->img_thumbnail) }}"
-                                            alt="Kenne's Product Image">
-                                    </a>
-                                    <span class="sticker">Sale</span>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-desc_info">
-                                        <span class="manufacture-product">
-                                            @foreach ($productBestSeller->tags as $tag)
-                                                {{$tag->name}},
-                                            @endforeach
-                                        </span>
-                                        <h3 class="product-name"><a href="single-product.html">{{$productBestSeller->name}}</a>
-                                        </h3>
-                                        <div class="price-box">
-                                            <span class="new-price">{{ number_format($productBestSeller->price_sale, 0, ',', '.') }}<sup>đ</sup></span>
-                                            <span class="old-price">{{ number_format($productBestSeller->price_regular, 0, ',', '.') }}<sup>đ</sup></span>
-                                        </div>
+                            <div class="product-item">
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <a href="{{ route('product.detail', $productBestSeller->slug) }}">
+                                            <img class="primary-img"
+                                                src="{{ Storage::url($productBestSeller->img_thumbnail) }}"
+                                                alt="Kenne's Product Image">
+                                        </a>
+                                        <span class="sticker">Sale</span>
                                     </div>
-                                    {{-- <div class="add-actions">
+                                    <div class="product-content">
+                                        <div class="product-desc_info">
+                                            <span class="manufacture-product">
+                                                @foreach ($productBestSeller->tags as $tag)
+                                                    {{ $tag->name }},
+                                                @endforeach
+                                            </span>
+                                            <h3 class="product-name"><a
+                                                    href="{{ route('product.detail', $productBestSeller->slug) }}">{{ $productBestSeller->name }}</a>
+                                            </h3>
+                                            <div class="price-box">
+                                                <span
+                                                    class="new-price">{{ number_format($productBestSeller->price_sale, 0, ',', '.') }}<sup>đ</sup></span>
+                                                <span
+                                                    class="old-price">{{ number_format($productBestSeller->price_regular, 0, ',', '.') }}<sup>đ</sup></span>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="add-actions">
                                         <ul>
                                             <li><a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top"
                                                     title="Add To Wishlist"><i class="ion-ios-heart-outline"></i></a>
@@ -389,11 +440,10 @@
                                             </li>
                                         </ul>
                                     </div> --}}
+                                    </div>
                                 </div>
+
                             </div>
-
-                        </div>
-
                         @endforeach
                     </div>
                 </div>
@@ -537,4 +587,34 @@
             </div>
         </div>
         <!-- Latest Blog Area End Here -->
+    @endsection
+
+    @section('styles')
+        <style>
+            .coupon {
+                width: 300px;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                text-align: center;
+                position: relative;
+            }
+
+            .coupon .code {
+                font-size: 16px;
+                font-weight: bold;
+                color: #a8741a;
+                margin-bottom: 10px;
+            }
+
+            .coupon .discount {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+
+            .coupon .expiry {
+                font-size: 14px;
+                color: #777;
+            }
+        </style>
     @endsection

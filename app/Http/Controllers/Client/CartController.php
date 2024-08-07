@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
@@ -11,7 +12,9 @@ class CartController extends Controller
     public function list()
     {
 
-        $this->calTotalPriceAndQuantity();;
+        if (session('cart')) {
+            $this->calTotalPriceAndQuantity();
+        }
 
         return view('client.cart');
     }
@@ -49,11 +52,11 @@ class CartController extends Controller
             if ($quantity <= 0) {
                 $quantity = 1;
             }
-                foreach ($data as $id => $item) {
-                    if ($id === $idProductVariant) {
-                        $data[$id]['quantity_purchase'] = $quantity;
-                    }
+            foreach ($data as $id => $item) {
+                if ($id === $idProductVariant) {
+                    $data[$id]['quantity_purchase'] = $quantity;
                 }
+            }
         }
 
         session()->put('cart', $data);
@@ -77,10 +80,9 @@ class CartController extends Controller
         $cart = session('cart');
 
         $totalAmount = 0;
-        $totalQuantity = 0;
+
         foreach ($cart as $item) {
             $totalAmount += $item['quantity_purchase'] * ($item['price_sale'] ?: $item['price_regular']);
-            $totalQuantity +=  $item['quantity_purchase'];
         }
 
         session()->put('total_amount', $totalAmount);

@@ -107,10 +107,7 @@
                                             <span>{{ number_format(session('total_amount'), 0, ',', '.') }}<sup>đ</sup></span>
                                         </li>
                                     </ul>
-                                    <form action="{{ route('checkout.view') }}" method="GET">
-                                        @csrf
-                                        <button type="submit" class="checkout mt-3">Proceed to checkout</button>
-                                    </form>
+                                        <a href="{{ route('checkout.view') }}" style="font-size: 15px; padding: 0 15px" type="submit" class="checkout mt-3">Proceed to checkout</a>
                                 </div>
                             </div>
                         </div>

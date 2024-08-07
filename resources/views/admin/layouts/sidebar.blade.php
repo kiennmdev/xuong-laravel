@@ -81,6 +81,26 @@
                 </li> <!-- end Dashboard Menu -->
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarBanners" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarBanners">
+                        <i class="ri-slideshow-line"></i> <span data-key="t-layouts">Banner</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarBanners">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('admin.banners.index')}}" target="_blank" class="nav-link"
+                                    data-key="t-horizontal">Danh sách</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.banners.create')}}" target="_blank" class="nav-link"
+                                    data-key="t-detached">Thêm mới</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </li> <!-- end Dashboard Menu -->
+
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarUsers" data-bs-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="sidebarUsers">
                         <i class="ri-account-circle-line"></i> <span data-key="t-layouts">Người dùng</span>
@@ -106,10 +126,17 @@
                     </a>
 
                 </li> <!-- end Dashboard Menu -->
+                
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('admin.coupon.index')}}">
+                        <i class="ri-coupon-2-line"></i> <span data-key="t-layouts">Mã giảm giá</span>
+                    </a>
+
+                </li> <!-- end Dashboard Menu -->
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.comments.index')}}">
-                        <i class="ri-account-circle-line"></i> <span data-key="t-layouts">Bình luận</span>
+                        <i class="bx bx-comment-detail"></i> <span data-key="t-layouts">Bình luận</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
             

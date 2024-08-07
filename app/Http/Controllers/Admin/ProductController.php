@@ -204,7 +204,7 @@ class ProductController extends Controller
 
             $product->tags()->sync($dataProductTags);
 
-            if(isset($dataProductGalleries['add-gallery'])) {
+            if (isset($dataProductGalleries['add-gallery'])) {
                 foreach ($dataProductGalleries['add-gallery'] as $image) {
                     ProductGallery::query()->create([
                         'product_id' => $dataProduct['id'],
@@ -218,7 +218,7 @@ class ProductController extends Controller
             }
 
             foreach ($dataProductVariants as $variant) {
-                if($variant['image'] === null) {
+                if ($variant['image'] === null) {
                     unset($variant['image']);
                 } else {
                     $variant['image'] = Storage::put('products', $variant['image']);
@@ -231,7 +231,6 @@ class ProductController extends Controller
             DB::commit();
 
             return back();
-
         } catch (\Exception $exception) {
             DB::rollBack();
 
@@ -243,7 +242,6 @@ class ProductController extends Controller
 
             return back();
         }
-
     }
 
     /**

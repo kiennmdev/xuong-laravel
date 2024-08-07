@@ -54,6 +54,7 @@ class Order extends Model
         'ship_user_note',
         'status_order',
         'status_payment',
+        'discount',
         'total_price',
     ];
 

@@ -52,9 +52,10 @@
                         <h3>Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
                         <div id="checkout_coupon" class="coupon-checkout-content">
                             <div class="coupon-info">
-                                <form action="javascript:void(0)">
+                                <form action="{{ route('add.coupon') }}" method="POST">
+                                    @csrf
                                     <p class="checkout-coupon">
-                                        <input placeholder="Coupon code" type="text">
+                                        <input placeholder="Coupon code" type="text" name="coupon">
                                         <input class="coupon-inner_btn" value="Apply Coupon" type="submit">
                                     </p>
                                 </form>
@@ -101,26 +102,30 @@
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>Your Name <span class="required">*</span></label>
-                                        <input placeholder="Your Name" type="text" name="user_name" value="{{Auth::user()->name}}">
+                                        <input placeholder="Your Name" type="text" name="user_name"
+                                            value="{{ Auth::user()->name }}">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>Address <span class="required">*</span></label>
-                                        <input placeholder="Address" type="text" name="user_address" value="{{Auth::user()->address}}">
+                                        <input placeholder="Address" type="text" name="user_address"
+                                            value="{{ Auth::user()->address }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkout-form-list">
                                         <label>Email Address <span class="required">*</span></label>
-                                        <input placeholder="Email Address" type="email" name="user_email" value="{{Auth::user()->email}}">
+                                        <input placeholder="Email Address" type="email" name="user_email"
+                                            value="{{ Auth::user()->email }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkout-form-list">
                                         <label>Phone <span class="required">*</span></label>
-                                        <input placeholder="Phone" type="text" name="user_phone" value="{{Auth::user()->phone}}">
+                                        <input placeholder="Phone" type="text" name="user_phone"
+                                            value="{{ Auth::user()->phone }}">
                                     </div>
                                 </div>
                             @endif
@@ -138,95 +143,7 @@
                                 </div>
                             </div> --}}
                         </div>
-                        {{-- <div class="different-address">
-                            <div class="ship-different-title">
-                                <h3>
-                                    <label>Ship to a different address?</label>
-                                    <input id="ship-box" type="checkbox">
-                                </h3>
-                            </div>
-                            <div id="ship-box-info" class="row">
-                                <div class="col-md-12">
-                                    <div class="myniceselect country-select clearfix">
-                                        <label>Country <span class="required">*</span></label>
-                                        <select class="nice-select myniceselect wide">
-                                            <option data-display="Bangladesh">Bangladesh</option>
-                                            <option value="uk">London</option>
-                                            <option value="rou">Romania</option>
-                                            <option value="fr">French</option>
-                                            <option value="de">Germany</option>
-                                            <option value="aus">Australia</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>First Name <span class="required">*</span></label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Last Name <span class="required">*</span></label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Company Name</label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Address <span class="required">*</span></label>
-                                        <input placeholder="Street address" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Town / City <span class="required">*</span></label>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>State / County <span class="required">*</span></label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Postcode / Zip <span class="required">*</span></label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Email Address <span class="required">*</span></label>
-                                        <input placeholder="" type="email">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Phone <span class="required">*</span></label>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="order-notes">
-                                <div class="checkout-form-list checkout-form-list-2">
-                                    <label>Order Notes</label>
-                                    <textarea id="checkout-mess" cols="30" rows="10"
-                                        placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                                </div>
-                            </div>
-                        </div> --}}
+
                     </div>
 
                 </div>
@@ -246,27 +163,59 @@
                                         <tr class="cart_item">
                                             <td class="cart-product-name">{{ $product['name'] }}<strong
                                                     class="product-quantity">
-                                                    × {{ $product['quantity_purchase'] }}</strong></td>
+                                                    × {{ $product['quantity_purchase'] }}</strong>
+                                            </td>
                                             @php
                                                 $price = $product['price_sale'] ?? $product['price_regular'];
                                             @endphp
-                                            <td class="cart-product-total"><span
-                                                    class="amount">{{ number_format($price, 0, ',', '.') }}<sup>đ</sup></span>
+                                            <td class="cart-product-total">
+                                                <span class="amount">{{ number_format($price, 0, ',', '.') }}<sup>đ</sup>
+                                                </span>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr class="cart-subtotal">
-                                        <th>Cart Subtotal</th>
-                                        <td><span
-                                                class="amount">{{ number_format($totalAmount, 0, ',', '.') }}<sup>đ</sup></span>
+                                        <th>Tạm tính</th>
+                                        <td>
+                                            <span class="amount">{{ number_format($totalAmount, 0, ',', '.') }}<sup>đ</sup>
+                                            </span>
                                         </td>
                                     </tr>
+                                    @session('coupon')
+                                        <tr class="" style="background-color: rgba(141, 101, 33, 0.212)">
+                                            <td>Mã giảm giá: {{ session('coupon')->code }}</td>
+                                            <td>
+                                                @php
+
+                                                    $discount = session('coupon')->discount;
+
+                                                    $total = $totalAmount - $discount;
+
+                                                    if (session('coupon')->type == 'percent') {
+                                                        $discount = ($totalAmount * session('coupon')->discount) / 100;
+                                                        $total = $totalAmount - $discount;
+                                                    }
+                                                @endphp
+                                                <span
+                                                    style="font-size: 12px">-{{ number_format($discount, 0, ',', '.') }}<sup>đ</sup>
+                                                </span>
+                                                <input type="hidden" name="discount" value="{{ $discount }}">
+                                                <span><a href="{{ route('delete.coupon') }}">[Xóa]</a></span>
+                                            </td>
+                                        </tr>
+                                    @endsession
                                     <tr class="order-total">
-                                        <th>Order Total</th>
-                                        <td><strong><span
-                                                    class="amount">{{ number_format($totalAmount, 0, ',', '.') }}<sup>đ</sup></span></strong>
+                                        <th>Tổng</th>
+                                        <td>
+                                            <strong>
+                                                <span
+                                                    class="amount">{{ number_format(session('coupon') ? $total : $totalAmount, 0, ',', '.') }}<sup>đ</sup>
+                                                </span>
+                                                <input type="hidden" name="total_price"
+                                                    value="{{ session('coupon') ? $total : $totalAmount }}">
+                                            </strong>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -275,7 +224,22 @@
                         <div class="payment-method">
                             <div class="payment-accordion">
                                 <div id="accordion">
-                                    <div class="card">
+                                    <h5>Payment Method</h5>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_method"
+                                            id="cod" value="cod" checked>
+                                        <label class="form-check-label" for="cod">
+                                            Thanh toán khi nhận hàng
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_method"
+                                            id="momo" value="momo">
+                                        <label class="form-check-label" for="momo">
+                                            Thanh toán bằng MOMO
+                                        </label>
+                                    </div>
+                                    {{-- <div class="card">
                                         <div class="card-header" id="#payment-1">
                                             <h5 class="panel-title">
                                                 <a href="javascript:void(0)" class="" data-bs-toggle="collapse"
@@ -331,7 +295,7 @@
                                                     our account.</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="order-button-payment">
                                     <input value="Place order" type="submit">
@@ -341,7 +305,20 @@
                     </div>
                 </div>
             </form>
+            {{-- <form action="{{ route('payment.momo') }}" method="post">
+                @csrf
+                <button type="submit">submit</button>
+            </form> --}}
         </div>
     </div>
     <!-- Kenne's Checkout Area End Here -->
+@endsection
+
+@section('styles')
+    <style>
+        .form-check-input:checked {
+            background-color: #a8741a;
+            border-color: #a8741a;
+        }
+    </style>
 @endsection
